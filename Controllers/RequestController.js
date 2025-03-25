@@ -1,4 +1,4 @@
-const Request = require("../Models/RequestModel"); // Assuming you have a Request model
+const Request = require("../Models/RequestModel");
 
 // Get all requests
 exports.getAllRequests = async (req, res) => {
@@ -25,6 +25,7 @@ exports.getRequestById = async (req, res) => {
 
 // Create a new request
 exports.createRequest = async (req, res) => {
+    console.log("Creating request..." + req.body);
     const { name, email, phone, goal, preferredDays, additionalInfo } = req.body;
     let request;
     try {
@@ -38,7 +39,9 @@ exports.createRequest = async (req, res) => {
         });
         await request.save();
         console.log("Request created successfully");
+        res.status(201).json({ message: "Request created successfully", request });
     } catch (error) {
+        console.log("Error creating request", error);
         res.status(400).json({ message: "Error creating request", error });
     }
 };

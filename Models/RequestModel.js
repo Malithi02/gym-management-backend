@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
-const RequestSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const RequestSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -26,4 +28,4 @@ const RequestSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model("Request", RequestSchema);
+module.exports = mongoose.model("request", RequestSchema);
