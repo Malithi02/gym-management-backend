@@ -26,6 +26,10 @@ const RequestSchema = new Schema({
     additionalInfo: {
         type: String,
     },
+    status: {
+        type: String,
+        default: "Pending",
+    },
 });
 
 module.exports = mongoose.model("request", RequestSchema);
