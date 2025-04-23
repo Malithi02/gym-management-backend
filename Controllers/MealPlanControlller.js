@@ -57,6 +57,21 @@ exports.createMealPlan = async (req, res) => {
         return res.status(500).send({ success: false, message: "Server error", error });
     }
 };
+/*exports.createMealPlan = async (req, res) => {
+    try {
+      const body = req.body;
+      console.log("Creating Meal Plan:", body);
+  
+      const mealplan = new MealPlanModel(body);
+      const result = await mealplan.save();
+  
+      res.status(200).json({ message: "Meal Plan Created Successfully", result });
+    } catch (error) {
+      console.error("Error creating meal plan:", error);
+      res.status(500).json({ message: "Internal Server Error", error });
+    }
+  };*/
+  
 
 exports.updateMealPlan = async (req, res) => {
     const { id } = req.params;

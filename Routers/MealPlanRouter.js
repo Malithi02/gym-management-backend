@@ -1,4 +1,5 @@
 const express = require("express");
+const MealPlanControlller = require("../Controllers/MealPlanControlller");
 
 const router = express.Router();
 
@@ -22,7 +23,8 @@ router.get("/:id", getMealPlanById);
 router.get("/email/:email", getMealPlansByEmail);
 
 // Create a new plan
-router.post("/", createMealPlan);
+router.post("/create", createMealPlan);
+//router.post("/create", MealPlanControlller.createMealPlan);
 
 // Update an existing plan
 router.patch("/:id", updateMealPlan);
