@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const RequestRouter = require("./Routers/RequestRouters");
 const PlanRouter = require("./Routers/PlanRouter");
 const ReplyRouter = require("./Routers/ReplyRouter");
+
 require("dotenv").config();
 
 const app = express();
@@ -12,9 +13,11 @@ const port = process.env.PORT || 3000;
 // ✅ Middleware
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:5173" })); // ✅ Ensure CORS is correct
+
 app.use("/requests", RequestRouter);
 app.use("/plans", PlanRouter);
 app.use("/reply", ReplyRouter);
+//app.use("/mealplans", require("./Routers/MealPlanRouter")); // ✅ Ensure correct import
 
 // ✅ Mongoose Connection
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@gym-fitness-plans.d2bvb.mongodb.net/Gym-Fitness-Plans?retryWrites=true&w=majority`;
