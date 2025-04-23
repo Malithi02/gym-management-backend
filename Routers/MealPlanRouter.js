@@ -2,7 +2,14 @@ const express = require("express");
 
 const router = express.Router();
 
-const { getAllMealPlans, getMealPlanById, getMealPlansByEmail, createMealPlan, updateMealPlan, deleteMealPlan } = require("../Controllers/MealPlanControlller");
+const {
+    getAllMealPlans,
+    getMealPlanById,
+    getMealPlansByEmail,
+    createMealPlan,
+    updateMealPlan,
+    deletePlan,
+} = require("../Controllers/MealPlanControlller");
 
 // Routes
 // Get all plans
@@ -21,6 +28,6 @@ router.post("/", createMealPlan);
 router.patch("/:id", updateMealPlan);
 
 // Delete a plan
-router.delete("/:id", deleteMealPlan);
+router.delete("/:id", deletePlan);
 
 module.exports = router;
