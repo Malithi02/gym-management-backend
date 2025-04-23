@@ -43,10 +43,12 @@ exports.getMealPlansByEmail = async (req, res) => {
 
 exports.createMealPlan = async (req, res) => {
     try {
+        console.log("Received request body:", req.body);
         const body = req.body;
         body.createdAt = new Date();
         const mealplan = new MealPlanModel(body);
-        const result = await plan.save();
+        const result = await mealplan.save();
+        console.log("Save result:", result);
 
         if (result) {
             return res.status(200).send({ success: true, result });
@@ -54,7 +56,13 @@ exports.createMealPlan = async (req, res) => {
             return res.status(500).send({ success: false, message: "Cannot insert! Try again later" });
         }
     } catch (error) {
-        return res.status(500).send({ success: false, message: "Server error", error });
+        console.error("Detailed error:", error);
+        return res.status(500).send({
+            success: false,
+            message: "Server error",
+            error: error.message,
+            stack: error.stack,
+        });
     }
 };
 /*exports.createMealPlan = async (req, res) => {
@@ -71,7 +79,6 @@ exports.createMealPlan = async (req, res) => {
       res.status(500).json({ message: "Internal Server Error", error });
     }
   };*/
-  
 
 exports.updateMealPlan = async (req, res) => {
     const { id } = req.params;
