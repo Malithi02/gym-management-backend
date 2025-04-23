@@ -35,7 +35,7 @@ exports.getMealPlanById = async (req, res) => {
 exports.getMealPlansByEmail = async (req, res) => {
     try {
         const mealplans = await MealPlanModel.find({ postedBy: req.params.email });
-        res.send(plans);
+        res.send(mealplans);
     } catch (error) {
         res.status(500).send({ success: false, message: "Failed to fetch workout plans", error });
     }
