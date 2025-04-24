@@ -17,7 +17,7 @@ const {
 router.get("/", getAllMealPlans);
 
 // Get a specific plan by ID
-router.get("/:id", getMealPlanById);
+router.get("/details/:id", getMealPlanById);
 
 // Get plans by email
 router.get("/email/:email", getMealPlansByEmail);
