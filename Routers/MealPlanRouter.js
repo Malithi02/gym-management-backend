@@ -27,7 +27,7 @@ router.post("/create", createMealPlan);
 //router.post("/create", MealPlanControlller.createMealPlan);
 
 // Update an existing plan
-router.patch("/:id", updateMealPlan);
+router.put("/edit/:id", updateMealPlan);
 
 // Delete a plan
 router.delete("/:id", deletePlan);
