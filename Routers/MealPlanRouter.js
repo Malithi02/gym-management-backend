@@ -9,7 +9,7 @@ const {
     getMealPlansByEmail,
     createMealPlan,
     updateMealPlan,
-    deletePlan,
+    deleteMealPlan,
 } = require("../Controllers/MealPlanControlller");
 
 // Routes
@@ -30,6 +30,6 @@ router.post("/create", createMealPlan);
 router.put("/edit/:id", updateMealPlan);
 
 // Delete a plan
-router.delete("/:id", deletePlan);
+router.delete("/delete/:id", deleteMealPlan);
 
 module.exports = router;

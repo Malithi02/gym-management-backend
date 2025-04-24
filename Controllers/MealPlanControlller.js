@@ -97,7 +97,7 @@ exports.updateMealPlan = async (req, res) => {
     }
 };
 
-exports.deletePlan = async (req, res) => {
+exports.deleteMealPlan = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await MealPlanModel.findByIdAndDelete(id);
