@@ -1,21 +1,57 @@
 const progressModel = require("../Models/progressModel");
 
 exports.getAllProgressPlans = async (req, res) => {
-    let Progress;
     try {
-        Progress= await progressModel.find();
-    } catch (err) {
-        console.error("Error fetching plans:", err); // Improved error logging
-        return res.status(500).json({ message: "Server error", error: err });
+        const progress = await progressModel.find();
+        res.status(200).json(progress);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching progress", error });
     }
+};
 
-    // If no plans are found, return a 404 status code
-    if (!Progress ||Progress.length === 0) {
-        console.log("No plans found in the database."); // Debugging log for empty results
-        return res.status(404).json({ message: "No plans found" });
+exports.getProgressByEmailAndPlanId = async (req, res) => {
+    try {
+        const { email } = req.params;
+        
+        const progress = await progressModel.find({ userEmail: email }).sort({ date: -1 });
+        res.status(200).json(progress);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching progress", error });
     }
+};
 
-    return res.status(200).json(Progress);
+exports.createProgress = async (req, res) => {
+    try {
+        const progress = new progressModel(req.body);
+        const savedProgress = await progress.save();
+        res.status(201).json(savedProgress);
+    } catch (error) {
+        res.status(500).json({ message: "Error creating progress", error });
+    }
+};
+
+exports.updateProgress = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedProgress = await progressModel.findByIdAndUpdate(
+            id,
+            req.body,
+            { new: true }
+        );
+        res.status(200).json(updatedProgress);
+    } catch (error) {
+        res.status(500).json({ message: "Error updating progress", error });
+    }
+};
+
+exports.deleteProgress = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await progressModel.findByIdAndDelete(id);
+        res.status(200).json({ message: "Progress deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting progress", error });
+    }
 };
 
 exports.getProgressPlanById = async (req, res) => {
@@ -88,12 +124,12 @@ exports.updateProgressPlan = async (req, res) => {
         const result = await progressModel.findByIdAndUpdate(id, updateData, { new: true });
 
         if (result) {
-            res.send({ success: true, message: " progress Plan updated successfully" });
+            res.send({ success: true, message: "Progress updated successfully" });
         } else {
-            res.status(404).send({ success: false, message: "Plan not found or no changes made" });
+            res.status(404).send({ success: false, message: "Progress not found or no changes made" });
         }
     } catch (error) {
-        res.status(500).send({ success: false, message: "Failed to update plan", error });
+        res.status(500).send({ success: false, message: "Failed to update progress", error });
     }
 };
 
@@ -103,11 +139,11 @@ exports.deleteProgressPlan = async (req, res) => {
         const result = await progressModel.findByIdAndDelete(id);
 
         if (result) {
-            res.send({ success: true, message: "progress Plan Deleted Successfully!" });
+            res.send({ success: true, message: "Progress deleted successfully!" });
         } else {
-            res.status(404).send({ success: false, message: "Plan not found" });
+            res.status(404).send({ success: false, message: "Progress not found" });
         }
     } catch (error) {
-        res.status(500).send({ success: false, message: "Failed to delete plan", error });
+        res.status(500).send({ success: false, message: "Failed to delete progress", error });
     }
 };

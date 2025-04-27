@@ -1,35 +1,20 @@
 const express = require("express");
+const router = express.Router();
 const progressController = require("../Controllers/progressController");
 
-const router = express.Router();
+// Get all progress entries
+router.get("/", progressController.getAllProgressPlans);
 
-const {
-    getAllProgressPlans,
-    getProgressPlanById,
-    getProgressPlansByEmail,
-    createProgressPlan,
-    updateProgressPlan ,
-    deleteProgressPlan,
-} = require("../Controllers/progressController");
+// Get progress by email
+router.get("/email/:email", progressController.getProgressByEmailAndPlanId);
 
-// Routes
-// Get all plans
-router.get("/", getAllProgressPlans);
+// Create new progress entry
+router.post("/create", progressController.createProgressPlan);
 
-// Get a specific plan by ID
-router.get("/details/:id",  getProgressPlanById);
+// Update progress entry
+router.put("/edit/:id", progressController.updateProgressPlan);
 
-// Get plans by email
-router.get("/email/:email",getProgressPlansByEmail);
-
-// Create a new plan
-router.post("/create", createProgressPlan);
-//router.post("/create", MealPlanControlller.createMealPlan);
-
-// Update an existing plan
-router.put("/edit/:id", updateProgressPlan);
-
-// Delete a plan
-router.delete("/delete/:id",  deleteProgressPlan);
+// Delete progress entry
+router.delete("/delete/:id", progressController.deleteProgressPlan);
 
 module.exports = router;

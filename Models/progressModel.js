@@ -1,41 +1,37 @@
 const mongoose = require("mongoose");
 
 const ProgressSchema = new mongoose.Schema({
-    category: {
+    planId: {
+        type: String,
+        required: false,
+    },
+    userEmail: {
         type: String,
         required: true,
     },
-    workoutName: {
-        type: String,
-        required: true,
-    },
-    intensity: {
-        type: String,
-        required: true,
-    },
-    duration: {
-        type: String,
-        required: true,
-    },
-    weight: {
-        type: String,
-        required: true,
-    },
-    height: {
+    date: {
         type: Date,
         required: true,
     },
-    age: {
-        type: String,
-        required: true
+    weight: {
+        type: Number,
+        required: true,
     },
-    weightGoal: {
+    measurements: {
         type: String,
         required: true,
     },
+    completedWorkouts: {
+        type: String,
+        required: true,
+    },
+    notes: {
+        type: String,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
 
-
-
-    });
-
-module.exports = mongoose.model("demoplans", ProgressSchema);
+module.exports = mongoose.model("Progress", ProgressSchema);
